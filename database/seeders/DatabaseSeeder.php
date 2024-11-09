@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
@@ -23,12 +24,15 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             "name"=> "iftykhar alam",
             "email"=> "iftykhar@example.com",
+            'is_admin'=> true,
 
         ]);
 
         DB::table("users")->insert([
             'user_id'=>DB::table('users'),
-
+            'content'=> fake()->realText(50),
+            'created_at'=>now(),
+            'updated_at'=>now()
         ]);
     }
 }
