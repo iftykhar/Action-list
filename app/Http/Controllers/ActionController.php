@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActionController extends Controller
 {
@@ -11,7 +12,11 @@ class ActionController extends Controller
      */
     public function index()
     {
-        return view("Action.Home");
+        $actions = DB::table('actions')
+        ->where('user_id', auth()->user()->id)
+        ->get();
+        // dd($actions);
+        return view("Action.Home",compact('actions'));
     }
 
     /**
@@ -19,7 +24,7 @@ class ActionController extends Controller
      */
     public function create()
     {
-        //
+            return view('Action.create');
     }
 
     /**
@@ -27,7 +32,7 @@ class ActionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
