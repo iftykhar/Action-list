@@ -32,6 +32,23 @@ class ActionController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'content'=>'required|max:255|string',
+        ]);
+
+        // dd($validated) ;
+        $action = DB::table('actions')->insert([
+            'user_id'=> auth()->user()->id,
+            'content'=> $validated['content'],
+            'status'=> 0,
+            'created_at'=> now(),
+            'updated_at'=> now()
+
+        ]);
+        if($action){
+            return redirect()->route('Action.index');
+        }
+        return back();
 
     }
 
