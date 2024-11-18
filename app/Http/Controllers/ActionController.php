@@ -85,6 +85,26 @@ class ActionController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validated = $request->validate([
+            'content'=>'required|max:255|string',
+        ]);
+
+        // $action = DB::table('actions')->insert([
+        //     'user_id'=> auth()->user()->id,
+        //     'content'=> $validated['content'],
+        //     'status'=> 0,
+        //     'created_at'=> now(),
+        //     'updated_at'=> now()
+
+        // ]);
+        DB::table('action')
+        ->where('id',$id)
+        ->where('user_id',auth()->user()->id)
+        ->update([
+            'content'=> $validated['content'],
+            'created_at'=>now(),
+            'status'=>1,
+        ]);
 
     }
 
