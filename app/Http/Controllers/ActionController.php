@@ -12,6 +12,9 @@ class ActionController extends Controller
      */
     public function index()
     {
+        if (!auth()->check()) {
+            return view("auth.login");
+        }
         $actions = DB::table('actions')
         ->where('user_id', auth()->user()->id)
         ->get();
@@ -57,7 +60,12 @@ class ActionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // dd($id);
+        return view('Action.show',[
+            'action' => DB::table('actions')
+            ->where('id',$id)
+            ->first()
+        ]);
     }
 
     /**
@@ -65,7 +73,11 @@ class ActionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $action = DB::table('actions')
+        ->where('user_id', auth()->user()->id)
+        ->first();
+        // dd($action);
+        return view('Action.edit',compact('action'));
     }
 
     /**
@@ -73,7 +85,7 @@ class ActionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**
