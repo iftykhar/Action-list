@@ -74,6 +74,7 @@ class ActionController extends Controller
     public function edit(string $id)
     {
         $action = DB::table('actions')
+        ->where('id',$id)
         ->where('user_id', auth()->user()->id)
         ->first();
         // dd($action);
@@ -97,14 +98,17 @@ class ActionController extends Controller
         //     'updated_at'=> now()
 
         // ]);
-        DB::table('action')
+        $action = DB::table('actions')
         ->where('id',$id)
         ->where('user_id',auth()->user()->id)
         ->update([
             'content'=> $validated['content'],
-            'created_at'=>now(),
             'status'=>1,
+            'updated_at'=>now(),
+
         ]);
+
+        return to_route('Action.index',compact('action'));
 
     }
 
@@ -113,6 +117,13 @@ class ActionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $action = DB::table('actions')
+        ->where([
+            'id'=>$id,
+            'user_id'=>auth()->user()->id
+        ])
+        ->delete();
+        // return view('Action.Home');
+        return back();
     }
 }

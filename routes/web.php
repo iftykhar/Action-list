@@ -16,7 +16,12 @@ use App\Http\Controllers\ActionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    // $actions =
+
+    // DB::table('actions')->join()
+
+    // return view('welcome');
 });
 
 Route::resource('/Action',ActionController::class);

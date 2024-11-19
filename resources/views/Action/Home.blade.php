@@ -55,7 +55,7 @@
                                     </td>
                                     <td class="px-6 py-4 text-right space-x-2">
                                         <a href="{{ route('Action.edit',$action->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <form action="#" method="POST" onsubmit="return confirm('Are you sure?');" style="display:inline;">
+                                        <form action="{{ route('Action.destroy',$action->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" value="Delete" class="font-medium text-red-600 dark:text-blue-500 hover:underline">
