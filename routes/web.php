@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActionController;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +19,22 @@ use App\Http\Controllers\ActionController;
 
 Route::get('/', function () {
 
-    // $actions =
+    //
 
-    // DB::table('actions')->join()
-
-    // return view('welcome');
+    $actions = DB::table('actions')
+    ->join('users','actions.user_id','=','users.id')
+    ->select(
+        'actions.id as dream_id',
+        'actions.content',
+        'actions.status',
+        'actions.created_at',
+        'actions.user_id',
+        'users.name',
+        'users.email'
+    )
+    ->get();
+        dd($actions);
+    return view('welcome');
 });
 
 Route::resource('/Action',ActionController::class);
